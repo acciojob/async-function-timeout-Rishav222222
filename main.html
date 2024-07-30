@@ -1,20 +1,42 @@
 <!DOCTYPE html>
-
-<html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-
-  <body>
-    <!-- the entire body must be written by student -->
-    <form onsubmit="return false">
-      <input type="text" id="text" placeholder="Text" />
-      <input type="number" id="delay" placeholder="Delay" />
-      <button type="button" id="btn">Submit</button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Function with Timeout</title>
+</head>
+<body>
+    <form id="myForm">
+        <input type="text" id="text" placeholder="Enter text">
+        <input type="number" id="delay" placeholder="Enter delay in ms">
+        <button type="button" id="btn">Submit</button>
     </form>
-
     <div id="output"></div>
 
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+    <script>
+        // Async function to display message after delay
+        async function displayMessageAfterDelay(text, delay) {
+            // Use a Promise to handle the delay
+            await new Promise((resolve) => setTimeout(resolve, delay));
+            // Update the output div with the provided text
+            document.getElementById('output').textContent = text;
+        }
+
+        // Event listener for the button click
+        document.getElementById('btn').addEventListener('click', async () => {
+            // Retrieve values from the input fields
+            const text = document.getElementById('text').value;
+            const delay = parseInt(document.getElementById('delay').value, 10);
+
+            // Check if delay is a valid number
+            if (isNaN(delay) || delay < 0) {
+                document.getElementById('output').textContent = 'Please enter a valid delay.';
+                return;
+            }
+
+            // Call the async function to display the message after the delay
+            await displayMessageAfterDelay(text, delay);
+        });
+    </script>
+</body>
 </html>
